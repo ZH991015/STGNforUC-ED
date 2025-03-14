@@ -162,7 +162,7 @@ class TCNModule(nn.Module):
     def forward(self, x):
         return self.network(x)
 
-class GTCN_TCN(torch.nn.Module):
+class GATCN(torch.nn.Module):
     def __init__(self, num_node_features, num_nodes, channel, head):
         super(GTCN_TCN, self).__init__()
         self.conv1 = GATv2Conv(num_node_features, out_channels=channel, heads=head)
@@ -202,7 +202,7 @@ class GTCN_TCN(torch.nn.Module):
 
 
 # Assuming the number of classes is the size of your y's second dimension
-model = GTCN_TCN(num_node_features=window_size, num_nodes=30, channel=32, head=2).to(device)
+model = GATCN(num_node_features=window_size, num_nodes=30, channel=32, head=2).to(device)
 
 # Define loss function and optimizer
 criterion = torch.nn.L1Loss() # Use MSELoss for regression tasks
