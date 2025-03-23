@@ -1,2 +1,1 @@
-# M-GATCNforUC-ED
-Graph Temporal-Spatial Network with Hierarchical Constraint Correction for Two-Stage Security-Constrained Scheduling Optimization
+Two-Stage Spatio-Temporal Graph Network with Hierarchical Safety Corrections for UC-ED Integration
