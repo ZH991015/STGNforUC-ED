@@ -169,7 +169,7 @@ class TCNModule(nn.Module):
         return self.network(x)
 
 
-class GATCN(torch.nn.Module):
+class STGN(torch.nn.Module):
     def __init__(self, num_node_features, num_nodes, channel, head):
         super(GATCN, self).__init__()
         self.conv1 = GATv2Conv(num_node_features, out_channels=channel, heads=head)
@@ -208,8 +208,8 @@ class GATCN(torch.nn.Module):
         return x, att_weights_conv1, edge_index
 
 
-# 定义包含可学习参数的M-GATCN模型
-class M_GATCN(torch.nn.Module):
+# 定义包含可学习参数的STGN模型
+class STGN(torch.nn.Module):
     def __init__(self, num_node_features, num_nodes, channel, head):
         super(M_GATCN, self).__init__()
         self.gatcn = GATCN(num_node_features, num_nodes, channel, head)
@@ -223,7 +223,7 @@ class M_GATCN(torch.nn.Module):
 
 
 # Assuming the number of classes is the size of your y's second dimension
-model = M_GATCN(num_node_features=window_size, num_nodes=30, channel=32, head=2).to(device)
+model = STGN(num_node_features=window_size, num_nodes=30, channel=32, head=2).to(device)
 
 # Define loss function and optimizer
 criterion = torch.nn.L1Loss()  # Use MSELoss for regression tasks
