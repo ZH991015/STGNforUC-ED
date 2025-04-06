@@ -171,7 +171,7 @@ class TCNModule(nn.Module):
 
 class STGN(torch.nn.Module):
     def __init__(self, num_node_features, num_nodes, channel, head):
-        super(GATCN, self).__init__()
+        super(STGN, self).__init__()
         self.conv1 = GATv2Conv(num_node_features, out_channels=channel, heads=head)
         self.conv2 = GATv2Conv(channel * head, 512, heads=head)
         # self.conv3 = GCNConv(1024,512)
@@ -209,10 +209,10 @@ class STGN(torch.nn.Module):
 
 
 # 定义包含可学习参数的STGN模型
-class STGN(torch.nn.Module):
+class M_STGN(torch.nn.Module):
     def __init__(self, num_node_features, num_nodes, channel, head):
-        super(M_GATCN, self).__init__()
-        self.gatcn = GATCN(num_node_features, num_nodes, channel, head)
+        super(M_STGN, self).__init__()
+        self.gatcn = STGN(num_node_features, num_nodes, channel, head)
         # 添加两个可学习的参数
         self.sigma1 = nn.Parameter(torch.tensor(0.5))
         self.sigma2 = nn.Parameter(torch.tensor(0.5))
@@ -301,10 +301,10 @@ def validate():
             mse_total_loss += mse_loss.item()
             all_predictions.extend(out.cpu().numpy().tolist())
             all_targets.extend(y.cpu().numpy().tolist())
-    if epoch == 0 or epoch_data = val_dataset[0].to(device)
-    with torch.no_grad():
-        out, att_weights_conv1, edge_index = model(test_data)
-        plot_attention_weights_with_edges(att_weights_conv1.cpu().numpy(), edge_index.cpu().numpy(),
+    if epoch == 0 :
+        with torch.no_grad():
+            out, att_weights_conv1, edge_index = model(val_loader)
+            plot_attention_weights_with_edges(att_weights_conv1.cpu().numpy(), edge_index.cpu().numpy(),
                                           title='Conv1 Attention Weights', epoch=epoch, num_edges_to_plot=108)
         # plot_attention_weights_with_edges(att_weights_conv2.cpu().numpy(), edge_index.cpu().numpy(),
         #                                   title='Conv2 Attention Weights', epoch=epoch, num_edges_to_plot=108)
@@ -346,7 +346,7 @@ def validate():
     print(f'注意力权重已经保存到 {csv_file_path}')
 
 
-return total_loss / len(val_loader), all_predictions, all_targets, mse_total_loss / len(val_loader)
+    return total_loss / len(val_loader), all_predictions, all_targets, mse_total_loss / len(val_loader)
 
 # Training and Validation
 train_losses = []  # 用于记录每个epoch的训练损失
