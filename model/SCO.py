@@ -4,7 +4,7 @@ import numpy as np
 class UCEDAdjuster:
     def __init__(self, constraints, config):
         """
-        第二阶段调整器（完全独立于神经网络）
+        第二阶段调整器
 
         参数：
             constraints (dict): 包含以下键：
@@ -213,7 +213,7 @@ class UCEDAdjuster:
         if marginal_cost <= 0:
             return 0
 
-        # 根据伪代码，权重与边际成本成反比
+        #权重与边际成本成反比
         return 1.0 / marginal_cost
 
     def _adjust_ramp_rates(self, x):
